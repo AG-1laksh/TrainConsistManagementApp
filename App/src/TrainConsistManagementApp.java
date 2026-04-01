@@ -1,34 +1,40 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App: UC3 ===");
+        System.out.println("=== Train Consist Management App: UC4 ===");
 
-        // 1. Create a HashSet<String> for bogie IDs using the Set interface
-        Set<String> uniqueBogieIDs = new HashSet<>();
+        // 1. Create a LinkedList<String> for the consist
+        // We use the concrete LinkedList class here to access specific methods like removeFirst()
+        LinkedList<String> trainConsist = new LinkedList<>();
 
-        // 2. Add bogie IDs
-        System.out.println("Adding bogie ID: BG101");
-        uniqueBogieIDs.add("BG101");
+        // 2. Add bogies: Engine, Sleeper, AC, Cargo, Guard
+        // By default, add() appends to the end of the list (like addLast)
+        trainConsist.add("Engine");
+        trainConsist.add("Sleeper");
+        trainConsist.add("AC");
+        trainConsist.add("Cargo");
+        trainConsist.add("Guard");
 
-        System.out.println("Adding bogie ID: BG102");
-        uniqueBogieIDs.add("BG102");
+        System.out.println("Initial Train Consist: " + trainConsist);
 
-        System.out.println("Adding bogie ID: BG103");
-        uniqueBogieIDs.add("BG103");
+        // 3. Insert a Pantry Car at position 2
+        // In Java, lists are zero-indexed. Index 2 means it will be inserted after Engine (0) and Sleeper (1)
+        trainConsist.add(2, "Pantry Car");
+        System.out.println("-> Inserted 'Pantry Car' at position 2.");
+        System.out.println("Consist after insertion: " + trainConsist);
 
-        // 3. Add a duplicate value intentionally
-        System.out.println("Attempting to add duplicate bogie ID: BG101...");
-        boolean isAdded = uniqueBogieIDs.add("BG101");
+        // 4. Remove the first and last bogie
+        String removedHead = trainConsist.removeFirst();
+        String removedTail = trainConsist.removeLast();
 
-        // The add() method returns false if the element is already present
-        System.out.println("-> Was duplicate BG101 successfully added? " + isAdded);
+        System.out.println("-> Detached head bogie: " + removedHead);
+        System.out.println("-> Detached tail bogie: " + removedTail);
 
-        // 4. Print the final set to observe automatic deduplication
-        System.out.println("\nFinal registered bogie IDs: " + uniqueBogieIDs);
+        // 5. Display the final ordered train consist
+        System.out.println("\nFinal ordered train consist: " + trainConsist);
 
         // Program continues...
     }
