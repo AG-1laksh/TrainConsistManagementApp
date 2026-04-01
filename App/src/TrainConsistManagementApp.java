@@ -1,29 +1,59 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+// 1. Create a Bogie class with fields such as name and capacity
+class Bogie {
+    private String name;
+    private int capacity;
+
+    public Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    // Overriding toString() to format the output nicely
+    @Override
+    public String toString() {
+        return name + " (" + capacity + " seats)";
+    }
+}
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App: UC6 ===");
+        System.out.println("=== Train Consist Management App: UC7 ===");
 
-        // 1. Create a HashMap<String, Integer> to store bogie-capacity information
-        Map<String, Integer> bogieCapacityMap = new HashMap<>();
+        // 2. Create a List<Bogie> to store passenger bogies
+        List<Bogie> passengerBogies = new ArrayList<>();
 
-        // 2 & 3. Insert capacity values using the put() method
-        System.out.println("Mapping bogie types to their operational capacities...");
-        bogieCapacityMap.put("Sleeper", 72);
-        bogieCapacityMap.put("AC Chair", 60);
-        bogieCapacityMap.put("First Class", 24);
+        // 3. Add bogies like Sleeper, AC Chair, and First Class with capacities
+        passengerBogies.add(new Bogie("Sleeper", 72));
+        passengerBogies.add(new Bogie("AC Chair", 60));
+        passengerBogies.add(new Bogie("First Class", 24));
 
-        System.out.println("\n--- Bogie Capacity Directory ---");
+        System.out.println("--- Unsorted Bogies ---");
+        for (Bogie bogie : passengerBogies) {
+            System.out.println(bogie);
+        }
 
-        // 4 & 5. Iterate over the map using entrySet() and display each key-value pair
-        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
-            String bogieType = entry.getKey();
-            Integer capacity = entry.getValue();
+        // 4. Use Comparator.comparingInt() to define sorting based on capacity
+        // This sorts the list in ascending order (lowest capacity to highest)
+        passengerBogies.sort(Comparator.comparingInt(Bogie::getCapacity));
 
-            System.out.println("Bogie Type: " + bogieType + " | Capacity: " + capacity);
+        // 5. Sort the list and display the sorted bogies
+        System.out.println("\n--- Sorted Bogies by Capacity (Ascending) ---");
+        for (Bogie bogie : passengerBogies) {
+            System.out.println(bogie);
         }
 
         // Program continues...
