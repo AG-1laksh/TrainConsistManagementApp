@@ -1,40 +1,33 @@
-import java.util.LinkedList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App: UC4 ===");
+        System.out.println("=== Train Consist Management App: UC5 ===");
 
-        // 1. Create a LinkedList<String> for the consist
-        // We use the concrete LinkedList class here to access specific methods like removeFirst()
-        LinkedList<String> trainConsist = new LinkedList<>();
+        // 1. Create a LinkedHashSet<String> to represent the train formation
+        Set<String> trainFormation = new LinkedHashSet<>();
 
-        // 2. Add bogies: Engine, Sleeper, AC, Cargo, Guard
-        // By default, add() appends to the end of the list (like addLast)
-        trainConsist.add("Engine");
-        trainConsist.add("Sleeper");
-        trainConsist.add("AC");
-        trainConsist.add("Cargo");
-        trainConsist.add("Guard");
+        // 2. Attach bogies: Engine, Sleeper, Cargo, Guard
+        System.out.println("Attaching bogies to the train...");
+        trainFormation.add("Engine");
+        trainFormation.add("Sleeper");
+        trainFormation.add("Cargo");
+        trainFormation.add("Guard");
 
-        System.out.println("Initial Train Consist: " + trainConsist);
+        System.out.println("Current Formation: " + trainFormation);
 
-        // 3. Insert a Pantry Car at position 2
-        // In Java, lists are zero-indexed. Index 2 means it will be inserted after Engine (0) and Sleeper (1)
-        trainConsist.add(2, "Pantry Car");
-        System.out.println("-> Inserted 'Pantry Car' at position 2.");
-        System.out.println("Consist after insertion: " + trainConsist);
+        // 3. Attempt to attach a duplicate bogie intentionally (Sleeper)
+        System.out.println("\nAttempting to attach a duplicate 'Sleeper' bogie...");
+        boolean isAdded = trainFormation.add("Sleeper");
 
-        // 4. Remove the first and last bogie
-        String removedHead = trainConsist.removeFirst();
-        String removedTail = trainConsist.removeLast();
+        System.out.println("-> Was the duplicate Sleeper attached? " + isAdded);
 
-        System.out.println("-> Detached head bogie: " + removedHead);
-        System.out.println("-> Detached tail bogie: " + removedTail);
-
-        // 5. Display the final ordered train consist
-        System.out.println("\nFinal ordered train consist: " + trainConsist);
+        // 4. Display the final formation order
+        // 5. Ensure that duplicates do not appear in the output
+        System.out.println("\nFinal Train Formation: " + trainFormation);
 
         // Program continues...
     }
