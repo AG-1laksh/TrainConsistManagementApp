@@ -1,27 +1,34 @@
 import java.util.ArrayList;
 import java.util.List;
 
-// A minimal placeholder class for Bogies to be expanded in future Use Cases
-class Bogie {
-    // Properties like type, capacity, and cargo will be added here later
-}
-
 public class TrainConsistManagementApp {
 
-    // Entry point of the Java application
-    // FIXED: Changed method name from TrainConsistApp to main
     public static void main(String[] args) {
 
-        // 1. Application prints welcome message
-        System.out.println("=== Train Consist Management App ===");
+        System.out.println("=== Train Consist Management App: UC2 ===");
 
-        // 2. Train consist is initialized using the List interface and ArrayList implementation
-        List<Bogie> trainConsist = new ArrayList<>();
-        System.out.println("Train consist initialized successfully.");
+        // 1. Create an ArrayList<String> for passenger bogies
+        List<String> passengerBogies = new ArrayList<>();
 
-        // 3. Initial bogie count is displayed using the size() method
-        System.out.println("Initial bogie count: " + trainConsist.size());
+        // 2. Add bogies: Sleeper, AC Chair, First Class
+        passengerBogies.add("Sleeper");
+        passengerBogies.add("AC Chair");
+        passengerBogies.add("First Class");
 
-        // Program continues... (Future use cases will be added below)
+        // 3. Print the list after insertion
+        System.out.println("Train consist after initial additions: " + passengerBogies);
+
+        // 4. Remove one bogie (AC Chair)
+        passengerBogies.remove("AC Chair");
+        System.out.println("-> Detached 'AC Chair' bogie.");
+
+        // 5. Use contains() to check if Sleeper exists
+        boolean hasSleeper = passengerBogies.contains("Sleeper");
+        System.out.println("Is 'Sleeper' bogie still attached? " + hasSleeper);
+
+        // 6. Print final list state
+        System.out.println("Final train consist state: " + passengerBogies);
+
+        // Program continues...
     }
 }
