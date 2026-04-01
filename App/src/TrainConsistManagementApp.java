@@ -1,33 +1,30 @@
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App: UC5 ===");
+        System.out.println("=== Train Consist Management App: UC6 ===");
 
-        // 1. Create a LinkedHashSet<String> to represent the train formation
-        Set<String> trainFormation = new LinkedHashSet<>();
+        // 1. Create a HashMap<String, Integer> to store bogie-capacity information
+        Map<String, Integer> bogieCapacityMap = new HashMap<>();
 
-        // 2. Attach bogies: Engine, Sleeper, Cargo, Guard
-        System.out.println("Attaching bogies to the train...");
-        trainFormation.add("Engine");
-        trainFormation.add("Sleeper");
-        trainFormation.add("Cargo");
-        trainFormation.add("Guard");
+        // 2 & 3. Insert capacity values using the put() method
+        System.out.println("Mapping bogie types to their operational capacities...");
+        bogieCapacityMap.put("Sleeper", 72);
+        bogieCapacityMap.put("AC Chair", 60);
+        bogieCapacityMap.put("First Class", 24);
 
-        System.out.println("Current Formation: " + trainFormation);
+        System.out.println("\n--- Bogie Capacity Directory ---");
 
-        // 3. Attempt to attach a duplicate bogie intentionally (Sleeper)
-        System.out.println("\nAttempting to attach a duplicate 'Sleeper' bogie...");
-        boolean isAdded = trainFormation.add("Sleeper");
+        // 4 & 5. Iterate over the map using entrySet() and display each key-value pair
+        for (Map.Entry<String, Integer> entry : bogieCapacityMap.entrySet()) {
+            String bogieType = entry.getKey();
+            Integer capacity = entry.getValue();
 
-        System.out.println("-> Was the duplicate Sleeper attached? " + isAdded);
-
-        // 4. Display the final formation order
-        // 5. Ensure that duplicates do not appear in the output
-        System.out.println("\nFinal Train Formation: " + trainFormation);
+            System.out.println("Bogie Type: " + bogieType + " | Capacity: " + capacity);
+        }
 
         // Program continues...
     }
