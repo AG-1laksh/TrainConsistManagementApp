@@ -1,33 +1,34 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App: UC2 ===");
+        System.out.println("=== Train Consist Management App: UC3 ===");
 
-        // 1. Create an ArrayList<String> for passenger bogies
-        List<String> passengerBogies = new ArrayList<>();
+        // 1. Create a HashSet<String> for bogie IDs using the Set interface
+        Set<String> uniqueBogieIDs = new HashSet<>();
 
-        // 2. Add bogies: Sleeper, AC Chair, First Class
-        passengerBogies.add("Sleeper");
-        passengerBogies.add("AC Chair");
-        passengerBogies.add("First Class");
+        // 2. Add bogie IDs
+        System.out.println("Adding bogie ID: BG101");
+        uniqueBogieIDs.add("BG101");
 
-        // 3. Print the list after insertion
-        System.out.println("Train consist after initial additions: " + passengerBogies);
+        System.out.println("Adding bogie ID: BG102");
+        uniqueBogieIDs.add("BG102");
 
-        // 4. Remove one bogie (AC Chair)
-        passengerBogies.remove("AC Chair");
-        System.out.println("-> Detached 'AC Chair' bogie.");
+        System.out.println("Adding bogie ID: BG103");
+        uniqueBogieIDs.add("BG103");
 
-        // 5. Use contains() to check if Sleeper exists
-        boolean hasSleeper = passengerBogies.contains("Sleeper");
-        System.out.println("Is 'Sleeper' bogie still attached? " + hasSleeper);
+        // 3. Add a duplicate value intentionally
+        System.out.println("Attempting to add duplicate bogie ID: BG101...");
+        boolean isAdded = uniqueBogieIDs.add("BG101");
 
-        // 6. Print final list state
-        System.out.println("Final train consist state: " + passengerBogies);
+        // The add() method returns false if the element is already present
+        System.out.println("-> Was duplicate BG101 successfully added? " + isAdded);
+
+        // 4. Print the final set to observe automatic deduplication
+        System.out.println("\nFinal registered bogie IDs: " + uniqueBogieIDs);
 
         // Program continues...
     }
