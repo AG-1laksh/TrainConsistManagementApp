@@ -37,7 +37,7 @@ class TrainConsistManagementAppTest {
     void testFilter_OriginalListUnchanged() {
         int initialSize = bogieList.size();
         app.filterHighCapacityBogies(bogieList, 50);
-        assertEquals(initialSize, bogieList.size(), "The original list must not be modified");
+        assertEquals(initialSize, bogieList.size(), "The original list--------- must not be modified");
     }
 
     @Test
