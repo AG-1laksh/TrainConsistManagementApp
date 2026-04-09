@@ -69,7 +69,7 @@ public class TrainConsistManagementApp {
             System.out.println("Category: [" + type.toUpperCase() + "]");
             System.out.println("  Count: " + list.size());
             list.forEach(bogie -> System.out.println("  - " + bogie));
-            System.out.println("-------------------------");
+            System.out.println("---------");
         });
 
         System.out.println("\nGrouping successful. Program continues...");
