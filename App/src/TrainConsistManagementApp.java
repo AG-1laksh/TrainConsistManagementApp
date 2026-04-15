@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.regex.*;
+import java.util.stream.Collectors;
 
 public class TrainConsistManagementApp {
 
@@ -31,5 +32,45 @@ public class TrainConsistManagementApp {
                         !b.getType().equalsIgnoreCase("Cylindrical") ||
                                 b.getCargo().equalsIgnoreCase("Petroleum")
                 );
+    }
+
+    // UC13: Loop-based filtering
+    public List<Bogie> filterBogiesUsingLoop(List<Bogie> bogies) {
+        List<Bogie> result = new ArrayList<>();
+
+        for (Bogie b : bogies) {
+            if (b.getCapacity() > 60) {
+                result.add(b);
+            }
+        }
+
+        return result;
+    }
+
+    // UC13: Stream-based filtering
+    public List<Bogie> filterBogiesUsingStream(List<Bogie> bogies) {
+        return bogies.stream()
+                .filter(b -> b.getCapacity() > 60)
+                .collect(Collectors.toList());
+    }
+
+    // UC13: Loop timing
+    public long measureLoopTime(List<Bogie> bogies) {
+        long start = System.nanoTime();
+
+        filterBogiesUsingLoop(bogies);
+
+        long end = System.nanoTime();
+        return end - start;
+    }
+
+    // UC13: Stream timing
+    public long measureStreamTime(List<Bogie> bogies) {
+        long start = System.nanoTime();
+
+        filterBogiesUsingStream(bogies);
+
+        long end = System.nanoTime();
+        return end - start;
     }
 }
