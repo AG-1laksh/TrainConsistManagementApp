@@ -2,6 +2,11 @@ public class Bogie {
     private String type;
     private int capacity;
 
+    public Bogie(String type) {
+        this.type = type;
+        this.capacity = 0;
+    }
+
     public Bogie(String type, int capacity) {
         this.type = type;
         this.capacity = capacity;
