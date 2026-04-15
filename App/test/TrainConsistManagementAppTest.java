@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.*;
 
 class TrainConsistManagementAppTest {
 
@@ -53,5 +54,32 @@ class TrainConsistManagementAppTest {
     void testRegex_ExactPatternMatch() {
         assertFalse(app.isValidTrainID("TRN-1234XYZ"));
         assertFalse(app.isValidCargoCode("PET-AB123"));
+    }
+
+    // ================= UC12 TEST CASES =================
+
+    @Test
+    void testSafety_AllSafe() {
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Cylindrical", "Petroleum", 50),
+                new Bogie("Box", "Grain", 60)
+        );
+        assertTrue(app.isTrainSafe(bogies));
+    }
+
+    @Test
+    void testSafety_UnsafeCylindricalBogie() {
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Cylindrical", "Grain", 50)
+        );
+        assertFalse(app.isTrainSafe(bogies));
+    }
+
+    @Test
+    void testSafety_NonCylindricalAnyCargoIsSafe() {
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Box", "Chemicals", 40)
+        );
+        assertTrue(app.isTrainSafe(bogies));
     }
 }

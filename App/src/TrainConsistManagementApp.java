@@ -3,7 +3,7 @@ import java.util.regex.*;
 
 public class TrainConsistManagementApp {
 
-    // UC10 (keep if already there)
+    // UC10: Get total seat capacity
     public int getTotalSeatCapacity(List<Bogie> bogies) {
         return bogies.stream()
                 .map(Bogie::getCapacity)
@@ -22,5 +22,14 @@ public class TrainConsistManagementApp {
         Pattern pattern = Pattern.compile("PET-[A-Z]{2}");
         Matcher matcher = pattern.matcher(cargoCode);
         return matcher.matches();
+    }
+
+    // UC12: Safety validation
+    public boolean isTrainSafe(List<Bogie> bogies) {
+        return bogies.stream()
+                .allMatch(b ->
+                        !b.getType().equalsIgnoreCase("Cylindrical") ||
+                                b.getCargo().equalsIgnoreCase("Petroleum")
+                );
     }
 }
