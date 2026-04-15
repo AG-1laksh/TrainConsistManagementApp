@@ -1,210 +1,57 @@
 import org.junit.jupiter.api.Test;
-import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrainConsistManagementAppTest {
 
     TrainConsistManagementApp app = new TrainConsistManagementApp();
 
-    // UC9 - 1. Bogies grouped correctly
+    // ================= UC11 TEST CASES =================
+
     @Test
-    void testGrouping_BogiesGroupedByType() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper"),
-                new Bogie("AC Chair"),
-                new Bogie("Sleeper")
-        );
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertEquals(2, result.get("Sleeper").size());
-        assertEquals(1, result.get("AC Chair").size());
+    void testRegex_ValidTrainID() {
+        assertTrue(app.isValidTrainID("TRN-1234"));
     }
 
-    // UC9 - 2. Multiple bogies in same group
     @Test
-    void testGrouping_MultipleBogiesInSameGroup() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper"),
-                new Bogie("Sleeper"),
-                new Bogie("Sleeper")
-        );
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertEquals(3, result.get("Sleeper").size());
+    void testRegex_InvalidTrainIDFormat() {
+        assertFalse(app.isValidTrainID("TRAIN12"));
+        assertFalse(app.isValidTrainID("TRN12A"));
+        assertFalse(app.isValidTrainID("1234-TRN"));
     }
 
-    // UC9 - 3. Different bogie types
     @Test
-    void testGrouping_DifferentBogieTypes() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper"),
-                new Bogie("AC Chair"),
-                new Bogie("First Class")
-        );
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertEquals(3, result.size());
+    void testRegex_ValidCargoCode() {
+        assertTrue(app.isValidCargoCode("PET-AB"));
     }
 
-    // UC9 - 4. Empty list
     @Test
-    void testGrouping_EmptyBogieList() {
-        List<Bogie> bogies = new ArrayList<>();
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertTrue(result.isEmpty());
+    void testRegex_InvalidCargoCodeFormat() {
+        assertFalse(app.isValidCargoCode("PET-ab"));
+        assertFalse(app.isValidCargoCode("PET123"));
+        assertFalse(app.isValidCargoCode("AB-PET"));
     }
 
-    // UC9 - 5. Single category
     @Test
-    void testGrouping_SingleBogieCategory() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper"),
-                new Bogie("Sleeper")
-        );
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertEquals(1, result.size());
-        assertTrue(result.containsKey("Sleeper"));
+    void testRegex_TrainIDDigitLengthValidation() {
+        assertFalse(app.isValidTrainID("TRN-123"));
+        assertFalse(app.isValidTrainID("TRN-12345"));
     }
 
-    // UC9 - 6. Map contains correct keys
     @Test
-    void testGrouping_MapContainsCorrectKeys() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper"),
-                new Bogie("AC Chair"),
-                new Bogie("First Class")
-        );
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertTrue(result.containsKey("Sleeper"));
-        assertTrue(result.containsKey("AC Chair"));
-        assertTrue(result.containsKey("First Class"));
+    void testRegex_CargoCodeUppercaseValidation() {
+        assertFalse(app.isValidCargoCode("PET-Ab"));
+        assertFalse(app.isValidCargoCode("PET-aB"));
     }
 
-    // UC9 - 7. Group size validation
     @Test
-    void testGrouping_GroupSizeValidation() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper"),
-                new Bogie("Sleeper"),
-                new Bogie("AC Chair")
-        );
-
-        Map<String, List<Bogie>> result = app.groupBogiesByType(bogies);
-
-        assertEquals(2, result.get("Sleeper").size());
-        assertEquals(1, result.get("AC Chair").size());
+    void testRegex_EmptyInputHandling() {
+        assertFalse(app.isValidTrainID(""));
+        assertFalse(app.isValidCargoCode(""));
     }
 
-    // UC9 - 8. Original list unchanged
     @Test
-    void testGrouping_OriginalListUnchanged() {
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper"));
-        bogies.add(new Bogie("AC Chair"));
-
-        int originalSize = bogies.size();
-
-        app.groupBogiesByType(bogies);
-
-        assertEquals(originalSize, bogies.size());
-    }
-
-    // UC10 - 1. Total seat calculation
-    @Test
-    void testReduce_TotalSeatCalculation() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 50),
-                new Bogie("AC Chair", 40)
-        );
-
-        int total = app.getTotalSeatCapacity(bogies);
-
-        assertEquals(90, total);
-    }
-
-    // UC10 - 2. Multiple bogies
-    @Test
-    void testReduce_MultipleBogiesAggregation() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 50),
-                new Bogie("Sleeper", 50),
-                new Bogie("AC Chair", 40)
-        );
-
-        int total = app.getTotalSeatCapacity(bogies);
-
-        assertEquals(140, total);
-    }
-
-    // UC10 - 3. Single bogie
-    @Test
-    void testReduce_SingleBogieCapacity() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 60)
-        );
-
-        int total = app.getTotalSeatCapacity(bogies);
-
-        assertEquals(60, total);
-    }
-
-    // UC10 - 4. Empty list
-    @Test
-    void testReduce_EmptyBogieList() {
-        List<Bogie> bogies = new ArrayList<>();
-
-        int total = app.getTotalSeatCapacity(bogies);
-
-        assertEquals(0, total);
-    }
-
-    // UC10 - 5. Correct capacity extraction
-    @Test
-    void testReduce_CorrectCapacityExtraction() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 10),
-                new Bogie("AC Chair", 20)
-        );
-
-        int total = app.getTotalSeatCapacity(bogies);
-
-        assertEquals(30, total);
-    }
-
-    // UC10 - 6. All bogies included
-    @Test
-    void testReduce_AllBogiesIncluded() {
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 10),
-                new Bogie("AC Chair", 20),
-                new Bogie("First Class", 30)
-        );
-
-        int total = app.getTotalSeatCapacity(bogies);
-
-        assertEquals(60, total);
-    }
-
-    // UC10 - 7. Original list unchanged
-    @Test
-    void testReduce_OriginalListUnchanged() {
-        List<Bogie> bogies = new ArrayList<>();
-        bogies.add(new Bogie("Sleeper", 50));
-        bogies.add(new Bogie("AC Chair", 40));
-
-        int sizeBefore = bogies.size();
-
-        app.getTotalSeatCapacity(bogies);
-
-        assertEquals(sizeBefore, bogies.size());
+    void testRegex_ExactPatternMatch() {
+        assertFalse(app.isValidTrainID("TRN-1234XYZ"));
+        assertFalse(app.isValidCargoCode("PET-AB123"));
     }
 }
