@@ -9,12 +9,20 @@ public class Bogie {
         this.capacity = capacity;
     }
 
+    public Bogie(String type) {
+        this.type = type;
+    }
+
     public String getType() {
         return type;
     }
 
     public String getCargo() {
         return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public int getCapacity() {
