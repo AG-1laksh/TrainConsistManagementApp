@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class TrainConsistManagementApp {
 
     // UC16: Bubble Sort
@@ -21,5 +23,11 @@ public class TrainConsistManagementApp {
         }
 
         return arr;
+    }
+
+    // UC17: Sort bogie names using Arrays.sort()
+    public String[] sortBogieNames(String[] bogieNames) {
+        Arrays.sort(bogieNames);
+        return bogieNames;
     }
 }

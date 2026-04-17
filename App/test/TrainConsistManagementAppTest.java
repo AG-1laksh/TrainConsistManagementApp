@@ -49,4 +49,40 @@ class TrainConsistManagementAppTest {
 
         assertArrayEquals(expected, app.bubbleSort(input));
     }
+
+    // 6. Basic alphabetical sorting
+    @Test
+    void testSort_BasicAlphabeticalSorting() {
+        String[] input = {"Sleeper","AC Chair","First Class","General","Luxury"};
+        String[] expected = {"AC Chair","First Class","General","Luxury","Sleeper"};
+
+        assertArrayEquals(expected, app.sortBogieNames(input));
+    }
+
+    // 7. Unsorted input
+    @Test
+    void testSort_UnsortedInput() {
+        String[] input = {"Luxury","General","Sleeper","AC Chair"};
+        String[] expected = {"AC Chair","General","Luxury","Sleeper"};
+
+        assertArrayEquals(expected, app.sortBogieNames(input));
+    }
+
+    // 8. Duplicate names
+    @Test
+    void testSort_DuplicateBogieNames() {
+        String[] input = {"Sleeper","AC Chair","Sleeper","General"};
+        String[] expected = {"AC Chair","General","Sleeper","Sleeper"};
+
+        assertArrayEquals(expected, app.sortBogieNames(input));
+    }
+
+    // 9. Single element (string)
+    @Test
+    void testSort_SingleStringElement() {
+        String[] input = {"Sleeper"};
+        String[] expected = {"Sleeper"};
+
+        assertArrayEquals(expected, app.sortBogieNames(input));
+    }
 }
