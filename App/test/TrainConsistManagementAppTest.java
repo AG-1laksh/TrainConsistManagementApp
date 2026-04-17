@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,7 +5,52 @@ class TrainConsistManagementAppTest {
 
     TrainConsistManagementApp app = new TrainConsistManagementApp();
 
-    // 1. Basic alphabetical sorting
+    // 1. Basic sorting
+    @Test
+    void testSort_BasicSorting() {
+        int[] input = {72, 56, 24, 70, 60};
+        int[] expected = {24, 56, 60, 70, 72};
+
+        assertArrayEquals(expected, app.bubbleSort(input));
+    }
+
+    // 2. Already sorted
+    @Test
+    void testSort_AlreadySortedArray() {
+        int[] input = {24, 56, 60, 70, 72};
+        int[] expected = {24, 56, 60, 70, 72};
+
+        assertArrayEquals(expected, app.bubbleSort(input));
+    }
+
+    // 3. Duplicate values
+    @Test
+    void testSort_DuplicateValues() {
+        int[] input = {72, 56, 56, 24};
+        int[] expected = {24, 56, 56, 72};
+
+        assertArrayEquals(expected, app.bubbleSort(input));
+    }
+
+    // 4. Single element
+    @Test
+    void testSort_SingleElementArray() {
+        int[] input = {50};
+        int[] expected = {50};
+
+        assertArrayEquals(expected, app.bubbleSort(input));
+    }
+
+    // 5. All equal values
+    @Test
+    void testSort_AllEqualValues() {
+        int[] input = {40, 40, 40};
+        int[] expected = {40, 40, 40};
+
+        assertArrayEquals(expected, app.bubbleSort(input));
+    }
+
+    // 6. Basic alphabetical sorting
     @Test
     void testSort_BasicAlphabeticalSorting() {
         String[] input = {"Sleeper","AC Chair","First Class","General","Luxury"};
@@ -15,7 +59,7 @@ class TrainConsistManagementAppTest {
         assertArrayEquals(expected, app.sortBogieNames(input));
     }
 
-    // 2. Unsorted input
+    // 7. Unsorted input
     @Test
     void testSort_UnsortedInput() {
         String[] input = {"Luxury","General","Sleeper","AC Chair"};
@@ -24,16 +68,7 @@ class TrainConsistManagementAppTest {
         assertArrayEquals(expected, app.sortBogieNames(input));
     }
 
-    // 3. Already sorted
-    @Test
-    void testSort_AlreadySortedArray() {
-        String[] input = {"AC Chair","First Class","General"};
-        String[] expected = {"AC Chair","First Class","General"};
-
-        assertArrayEquals(expected, app.sortBogieNames(input));
-    }
-
-    // 4. Duplicate names
+    // 8. Duplicate names
     @Test
     void testSort_DuplicateBogieNames() {
         String[] input = {"Sleeper","AC Chair","Sleeper","General"};
@@ -42,9 +77,9 @@ class TrainConsistManagementAppTest {
         assertArrayEquals(expected, app.sortBogieNames(input));
     }
 
-    // 5. Single element
+    // 9. Single element (string)
     @Test
-    void testSort_SingleElementArray() {
+    void testSort_SingleStringElement() {
         String[] input = {"Sleeper"};
         String[] expected = {"Sleeper"};
 
